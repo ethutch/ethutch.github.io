@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terry Hutchinson</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0f0e17;
+      color: #e8e6f0;
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .hero {
+      padding: 3rem 0 2.5rem;
+      border-bottom: 1px solid #2a2744;
+      margin-bottom: 2.5rem;
+    }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #3C3489;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 500;
+      color: #CECBF6;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 500;
+      color: #f0eeff;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero .handle {
+      font-size: 15px;
+      color: #AFA9EC;
+      margin-bottom: 1rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .hero .handle:hover { color: #CECBF6; }
+
+    .hero p {
+      font-size: 15px;
+      color: #9e9bb8;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6b6888;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-card {
+      background: #1a1830;
+      border: 1px solid #2a2744;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.15s;
+    }
+
+    .project-card:hover { border-color: #7F77DD; }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 500;
+      color: #f0eeff;
+    }
+
+    .card-link {
+      font-size: 13px;
+      color: #AFA9EC;
+      white-space: nowrap;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: #9e9bb8;
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: #2e2a52;
+      color: #CECBF6;
+    }
+
+    .placeholder-card {
+      background: #141224;
+      border: 1px dashed #2a2744;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .placeholder-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #6b6888;
+    }
+
+    .placeholder-badge {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: #1a1830;
+      color: #6b6888;
+      border: 1px solid #2a2744;
+    }
+
+    .footer {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #2a2744;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: #9e9bb8;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: #AFA9EC; }
+
+    .footer small {
+      font-size: 12px;
+      color: #6b6888;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="hero">
+      <div class="avatar">TH</div>
+      <h1>Terry Hutchinson</h1>
+      <a class="handle" href="https://github.com/ethutch" target="_blank">@ethutch</a>
+      <p>Senior backend engineer with 20+ years of Java and Spring Framework experience. I build enterprise-grade microservices and distributed systems.</p>
+    </div>
+
+    <div>
+      <div class="section-label">Projects</div>
+
+      <a class="project-card" href="https://github.com/ethutch/northwind-api-server" target="_blank">
+        <div class="card-top">
+          <span class="card-title">northwind-api-server</span>
+          <span class="card-link">View on GitHub ↗</span>
+        </div>
+        <p class="card-desc">Enterprise-grade Spring Boot microservice built on the Microsoft Northwind schema. Demonstrates Kubernetes, Kafka with the Outbox Pattern, Apicurio Registry with Protobuf serialization, and a full CI/CD pipeline built with Jenkins and Helm.</p>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Kafka</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">Protobuf</span>
+          <span class="tag">Apicurio</span>
+          <span class="tag">Jenkins</span>
+          <span class="tag">Helm</span>
+          <span class="tag">PostgreSQL</span>
+        </div>
+      </a>
+
+      <div class="placeholder-card">
+        <span class="placeholder-title">Outbox Poller</span>
+        <span class="placeholder-badge">Coming soon</span>
+      </div>
+
+      <div class="placeholder-card">
+        <span class="placeholder-title">MongoDB Data Warehouse</span>
+        <span class="placeholder-badge">Coming soon</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/ethutch" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/terry-hutchinson-3b8a2b100" target="_blank">LinkedIn</a>
+      </div>
+      <small>ethutch.github.io</small>
+    </div>
+
+  </div>
+</body>
+</html>
