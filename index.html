@@ -205,6 +205,7 @@
         <p class="card-desc">Enterprise-grade Spring Boot microservice built on the Microsoft Northwind schema. Demonstrates Kubernetes, Kafka with the Outbox Pattern, Apicurio Registry with Protobuf serialization, and a full CI/CD pipeline built with Jenkins and Helm.</p>
         <div class="tags">
           <span class="tag">Java</span>
+          <span class="tag">Outbox Pattern</span>
           <span class="tag">Spring Boot</span>
           <span class="tag">Kafka</span>
           <span class="tag">Kubernetes</span>
@@ -216,10 +217,22 @@
         </div>
       </a>
 
-      <div class="placeholder-card">
-        <span class="placeholder-title">Outbox Poller</span>
-        <span class="placeholder-badge">Coming soon</span>
-      </div>
+      <a iv class="project-card" href="https://github.com/ethutch/outbox_kafka_pipeline" target="_blank">
+        <div class="card-top">
+          <span class="card-title">outbox_kafka_pipeline</span>
+          <span class="card-link">View on GitHub ↗</span>
+        </div>
+        <p class="card-desc">Continuation of the outbox messaging pattern.  This service polls the outbox table and publishes database updates to corresponding Kafka topics. This project uses native SQL in SQLAlchemy and supports retry with exponetial backoff. .env supports running locally and Jenkinsfile will run a  full CI/CD pipeline using helm to deploy on kubernetes.</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">Kafka</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">Jenkins</span>
+          <span class="tag">Helm</span>
+          <span class="tag">PostgreSQL</span>
+        </div>
+      </a>
 
       <div class="placeholder-card">
         <span class="placeholder-title">MongoDB Data Warehouse</span>
