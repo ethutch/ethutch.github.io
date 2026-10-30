@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud-Native Enterprise Architecture Showcase | Systems Architect Portfolio</title>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --bg-color: #0d1017;
+            --bg-card: #161b26;
+            --bg-card-hover: #1c2333;
+            --border-color: #273043;
+            --border-accent: #3b82f6;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-bright: #ffffff;
+            --accent-green: #10b981;
+            --accent-cyan: #06b6d4;
+            --accent-orange: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --glow-cyan: rgba(6, 182, 212, 0.15);
+            --glow-green: rgba(16, 185, 129, 0.15);
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Glassmorphism Header / Background Elements */
+        .bg-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1400px;
+            height: 600px;
+            background: radial-gradient(circle at 50% 10%, rgba(6, 182, 212, 0.12) 0%, rgba(16, 185, 129, 0.05) 30%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header Section */
+        header {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 0 2rem 0;
+            text-align: center;
+        }
+
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 1rem;
+            border-radius: 9999px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: var(--accent-cyan);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .role-badge .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            color: var(--text-bright);
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--text-bright) 30%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 2.5rem auto;
+            font-weight: 400;
+        }
+
+        /* Badges Bar */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .badge:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--glow-cyan);
+        }
+
+        /* Hero Diagram Section */
+        .diagram-section {
+            position: relative;
+            z-index: 1;
+            margin: 3rem 0 5rem 0;
+        }
+
+        .diagram-frame {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(6, 182, 212, 0.05);
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .diagram-frame:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+        }
+
+        .diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background-color: #ef4444; }
+        .dot-yellow { background-color: #f59e0b; }
+        .dot-green { background-color: #10b981; }
+
+        .diagram-wrapper {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 350px;
+            position: relative;
+        }
+
+        .diagram-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .diagram-caption {
+            margin-top: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(6, 182, 212, 0.05);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .diagram-caption strong {
+            color: var(--text-bright);
+        }
+
+        /* Section Titles */
+        .section-header {
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-header h2::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 24px;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-green));
+            border-radius: 3px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Architectural Breakdown Grid */
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 1.75rem;
+            margin-bottom: 5rem;
+        }
+
+        @media (max-width: 640px) {
+            .grid-2x2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            background: var(--bg-card-hover);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            color: var(--text-bright);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-tech-list {
+            list-style: none;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .card-tech-list li {
+            font-size: 0.875rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .card-tech-list li::before {
+            content: "➔";
+            color: var(--accent-cyan);
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+
+        /* Manifesto Section */
+        .manifesto-section {
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(22, 27, 38, 0.6) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 3rem 2.5rem;
+            margin-bottom: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manifesto-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--glow-green) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .manifesto-title {
+            font-size: 1.6rem;
+            color: var(--text-bright);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .comp-box {
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: rgba(13, 16, 23, 0.6);
+            border: 1px solid var(--border-color);
+        }
+
+        .comp-box.academic {
+            border-left: 4px solid #ef4444;
+        }
+
+        .comp-box.pragmatic {
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .comp-box h4 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comp-box.academic h4 { color: #f87171; }
+        .comp-box.pragmatic h4 { color: var(--accent-green); }
+
+        .comp-box ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .comp-box ul li {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Footer CTA */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 4rem 0 3rem 0;
+            text-align: center;
+            background: rgba(13, 16, 23, 0.8);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 4px 14px var(--glow-cyan);
+        }
+
+        .btn-primary:hover {
+            background: #22d3ee;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-bright);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        /* Fallback Container for Missing Image */
+        .image-fallback {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .image-fallback p {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="role-badge">
+                <span class="pulse-dot"></span>
+                Systems Architect Portfolio
+            </div>
+            <h1>Cloud-Native Enterprise Architecture Showcase</h1>
+            <p class="subtitle">
+                An Enterprise-grade event-driven platform demo showcasing real-world microservice integration, transactional consistency, 
+                Message Bus with at least once delivery, two different NoSQL ETL databases and local development of an AWS Lambda
+            </p>
+
+            <!-- Architecture Badges -->
+            <div class="tags-container">
+                <div class="badge">⚙️ Apache Kafka</div>
+                <div class="badge">☸️ Kubernetes Native</div>
+                <div class="badge">🔄 Transactional Outbox Pattern</div>
+                <div class="badge">📋 Apicurio Schema Registry v3</div>
+                <div class="badge">🔒 Spring Security</div>
+                <div class="badge">🐘 PostgreSQL with Spring JPA</div>
+                <div class="badge">🍃 MongoDB</div>
+                <div class="badge">⚡ MongoDB</div>
+                <div class="badge">⚡ LocalStack</div>
+            </div>
+        </header>
+
+        <!-- Hero Diagram Container -->
+        <section class="diagram-section">
+            <div class="diagram-frame">
+                <div class="diagram-header">
+                    <div class="window-dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <span>Architecture Diagram // System Topology</span>
+                    <span>C4 Level 2 View</span>
+                </div>
+                
+                <div class="diagram-wrapper">
+                    <img src="LocalDocker.png" 
+                         alt="Local Development Platform Architecture Diagram"
+                         onerror="this.style.display='none'; document.getElementById('diagram-fallback').style.display='block';">
+                    
+                    <div id="diagram-fallback" class="image-fallback" style="display: none;">
+                        <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin: 0 auto; stroke: var(--accent-cyan);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <p><strong>Diagram Asset Loaded:</strong> Local Development Platform Component Diagram.jpg</p>
+                        <p style="font-size: 0.8rem; opacity: 0.7;">Ensure the diagram image file resides in the root web folder alongside this page.</p>
+                    </div>
+                </div>
+
+                <div class="diagram-caption">
+                    <strong>Executive Architectural Overview:</strong> This platform demonstrates a resilient distributed transaction loop. Domain updates originate from the <code>northwind-api-server</code> (Spring Boot 3 REST API), 
+                    execute atomic writes to PostgreSQL, get polled asynchronously by <code>outbox_kafka_pipeline</code>, post at least once to Apache Kafka validated by Apicurio Registry, 
+                    and fan out to heterogeneous storage engines (MongoDB & AWS Lambda DynamoDB).
+                </div>
+            </div>
+        </section>
+
+        <!-- Deep-Dive Grid -->
+        <section>
+            <div class="section-header">
+                <h2>System Component Breakdown</h2>
+                <p>An in-depth look at the operational logic, data paths, and technical decisions driving this architecture.</p>
+            </div>
+
+            <div class="grid-2x2">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="card-icon">01</div>
+                    <h3>The Nervous System: Vanilla Kafka & Apicurio</h3>
+                    <p>
+                        Replace Confluent’s proprietary wrappers in favor of raw Apache Kafka paired with the open-source Apicurio Schema Registry v3.
+                    </p>
+                    <ul class="card-tech-list">
+                        <li><strong>Schema Governance:</strong> Apicurio REST endpoints provide strict schema validation without SaaS fees.</li>
+                        <li><strong>Zero Vendor Lock-In:</strong> Complete control over topics, consumer groups, and partition sizing.</li>
+                        <li><strong>Sovereign Infrastructure:</strong> Fully deployable on local Docker or enterprise Kubernetes clusters.</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="card-icon">02</div>
+                    <h3>Reliable Messaging: Transactional Outbox Pattern</h3>
+                    <p>
+                        Solves the classic distributed commit problem between relational storage and message brokers.
+                    </p>
+                    <ul class="card-tech-list">
+                        <li><strong>Atomic Database Operations:</strong> <code style="white-space: nowrap;">northwind-api-server</code> writes business domain data and outbox events into PostgreSQL via JDBC in a single transaction.</li>
+                        <li><strong>Guaranteed Delivery:</strong> <code style="white-space: nowrap;">(outbox_kafka_pipeline)</code>) reads records and publishes to Kafka.</li>
+                        <li><strong>Fault Isolation:</strong> Network glitches between Kafka and DB never jeopardize domain transaction integrity.</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="card-icon">03</div>
+                    <h3>Polyglot ELT Pipelines & Event Handlers</h3>
+                    <p>
+                        Demonstrating dual heterogeneous event consumers operating across containerized pods and serverless runtimes.
+                    </p>
+                    <ul class="card-tech-list">
+                        <li><strong>Kubernetes Document Stream:</strong> <code style="white-space: nowrap;">kafka_mongo_pipeline</code> (Python pod) ingests customer/order events and streams transformed documents into MongoDB.</li>
+                        <li><strong>LocalStack Serverless Stream:</strong> <code style="white-space: nowrap;">kafka_dynamodb_pipeline</code> (AWS Lambda in LocalStack) executes local serverless logic feeding items into DynamoDB.</li>
+                    </ul>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card">
+                    <div class="card-icon">04</div>
+                    <h3>Operational Resiliency & Failure Recovery</h3>
+                    <p>
+                        Ensuring poison-pill messages or downstream database timeouts don't block event stream processing.
+                    </p>
+                    <ul class="card-tech-list">
+                        <li><strong>Dead Letter Queue (DLQ):</strong> Unparseable events route to <code style="white-space: nowrap;">northwind-elt-events-dlq</code></li>
+                        <li><strong>Isolated Replay:</strong> Operational teams can inspect, repair, and replay failed messages without interrupting main stream processing.</li>
+                        <li><strong>Observability Ready:</strong> Clean separation of system errors from business domain events.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin: 3rem 0;">
+    <h2 style="color: var(--text-bright, #f0f6fc); font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #30363d); padding-bottom: 0.5rem;">
+        ⚙️ Core Repositories &amp; Source Code
+    </h2>
+    <p style="color: var(--text-muted, #8b949e); font-size: 1.05rem; margin-bottom: 1.5rem;">
+        Local development setup and Source code
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+      
+        <!-- Repo Card 1: locol-dev-docker -->
+        <div style="background-color: var(--card-bg, #161b22); border: 1px solid var(--border-color, #30363d); border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                    <h3 style="color: var(--text-bright, #f0f6fc); font-size: 1.25rem; font-weight: 600; margin: 0;">
+                        Local Development Stack
+                    </h3>
+                    <a href="https://github.com/ethutch/local-dev-docker" target="_blank" rel="noopener noreferrer" style="color: var(--accent, #58a6ff); font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        View Code ↗
+                    </a>
+                </div>
+                <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
+                    All the containers and applications shown above complete with Prometheus exporters in one compehensive docker compose file.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span class="badge">⚙️ Apache Kafka</span>
+                    <span class="badge">⚡ LocalStack</span>                
+                    <span class="badge">🖥️ Kafka UI</span>
+                    <span class="badge">📦 Apicurio</span>
+                    <span class="badge">🎨 Apicurio UI</span>
+                    <span class="badge">🐘 PostgreSQL</span>
+                    <span class="badge">🍃 MongoDB</span>
+                    <span class="badge">⚡ DynamoDB</span>
+                    <span class="badge">🔥 Prometheus</span>
+                    <span class="badge">📊 Grafana</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Repo Card 2: Enterprise Event Platform / K8s -->
+        <div style="background-color: var(--card-bg, #161b22); border: 1px solid var(--border-color, #30363d); border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                    <h3 style="color: var(--text-bright, #f0f6fc); font-size: 1.25rem; font-weight: 600; margin: 0;">
+                        Northwind API Server
+                    </h3>
+                    <a href="https://github.com/ethutch/northwind-api-server" target="_blank" rel="noopener noreferrer" style="color: var(--accent, #58a6ff); font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        View Code ↗
+                    </a>
+                </div>
+                <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
+                    Event-driven architecture incorporating Apicurio Registry v3 schema validation, Keycloak authentication, Dead Letter Queue routing, and polyglot persistence.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span class="badge">☕ Java 21</span>
+                    <span class="badge">☕ Spring Boot 3</span>
+                    <span class="badge">☸️ Kubernetes</span>
+                    <span class="badge">⎈ Helm</span>
+                    <span class="badge">📦 Apicurio v3</span>
+                    <!-- <span class="badge">🔒 Keycloak</span> -->
+                    <span class="badge">🐘 PostgreSQL</span>
+                </div>
+            </div>    
+        </div>
+
+        <!-- Repo Card 3: Outbox -->
+        <div style="background-color: var(--card-bg, #161b22); border: 1px solid var(--border-color, #30363d); border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                    <h3 style="color: var(--text-bright, #f0f6fc); font-size: 1.25rem; font-weight: 600; margin: 0;">
+                        Outbox Pattern Processor
+                    </h3>
+                    <a href="https://github.com/ethutch/outbox_kafka_pipeline" target="_blank" rel="noopener noreferrer" style="color: var(--accent, #58a6ff); font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        View Code ↗
+                    </a>
+                </div>
+                <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
+                    Read wire formatted events: Apicurio schema and protobuf encoded and safely publish them to Kafka
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                   <span class="badge">🐍 Python</span>
+                   <span class="badge">☸️ Kubernetes</span>
+                    <span class="badge">⎈ Helm</span>
+                    <span class="badge">⚙️ Kafka</span>
+                    <!-- <span class="badge">🔒 Keycloak</span> -->
+                    <span class="badge">🐘 PostgreSQL</span>
+                </div>
+            </div>    
+        </div>
+
+         <!-- Repo Card 4: MongoDB -->
+        <div style="background-color: var(--card-bg, #161b22); border: 1px solid var(--border-color, #30363d); border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                    <h3 style="color: var(--text-bright, #f0f6fc); font-size: 1.25rem; font-weight: 600; margin: 0;">
+                        Kafka to MongoDB Pipeline
+                    </h3>
+                    <a href="https://github.com/ethutch/kafka_mongo_pipeline" target="_blank" rel="noopener noreferrer" style="color: var(--accent, #58a6ff); font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        View Code ↗
+                    </a>
+                </div>
+                <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
+                    Read wire formatted events: Apicurio schema and protobuf encoded and safely publish them to Kafka
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                   <span class="badge">🐍 Python</span>
+                    <span class="badge">☸️ Kubernetes</span>
+                    <span class="badge">⎈ Helm</span>
+                    <span class="badge">⚙️ Kafka</span>
+                    <span class="badge">🍃 MongoDB</span>
+                </div>
+            </div>    
+        </div>
+
+          <!-- Repo Card 5: DynamoDB -->
+        <div style="background-color: var(--card-bg, #161b22); border: 1px solid var(--border-color, #30363d); border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                    <h3 style="color: var(--text-bright, #f0f6fc); font-size: 1.25rem; font-weight: 600; margin: 0;">
+                        AWS ESM Lambda to update DynamoDB
+                    </h3>
+                    <a href="https://github.com/ethutch/kafka_dynamodb_pipeline" target="_blank" rel="noopener noreferrer" style="color: var(--accent, #58a6ff); font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.25rem;">
+                        View Code ↗
+                    </a>
+                </div>
+                <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
+                    Read wire formatted events: Apicurio schema and protobuf encoded and safely publish them to Kafka
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span class="badge">🐍 Python</span>
+                    <span class="badge">🧊 OpenTofu</span>
+                    <span class="badge">ƛ AWS Lambda</span>
+                    <span class="badge">⚡ DynamoDB</span>
+                    <span class="badge">📨 AWS Event Source Mapping</span>
+                </div>
+            </div>    
+                        <!-- <a href="https://github.com/ethutch" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="text-align: center; margin-top: auto;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 0.3rem;"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                Browse Repository
+            </a> -->
+        </div>
+
+</section>
+
+
+    <!-- Contact & Footer -->
+<footer>
+    <div class="container" style="text-align: center; padding: 2.5rem 1rem;">
+        <h2 style="color: var(--text-bright, #f0f6fc); font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem;">
+            Interested in Enterprise Systems Architecture?
+        </h2>
+        <!-- <p style="color: var(--text-muted, #8b949e); font-size: 1.05rem; margin-bottom: 1.5rem;">
+            Looking for a Senior Backend / Systems Architect who builds portable, resilient, high-throughput platforms?
+        </p> -->
+
+        <div class="cta-buttons" style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 2rem;">
+            <a href="https://www.linkedin.com/in/terry-hutchinson-3b8a2b100" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; background-color: #0077b5; color: #ffffff; font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none;">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                Connect with me on LinkedIn
+            </a>
+
+            <a href="https://github.com/ethutch" target="_blank" rel="noopener" class="btn btn-primary">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                View Repositories on GitHub
+            </a>
+        </div>
+
+        <!-- <div class="copyright" style="color: var(--text-muted, #8b949e); font-size: 0.875rem;">
+            © Enterprise Systems Architecture — Built with pragmatic, high-performance HTML/CSS.
+        </div> -->
+    </div>
+</footer>
+
+</body>
+</html>
