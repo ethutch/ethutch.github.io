@@ -601,7 +601,7 @@
                         Solves the classic distributed commit problem between relational storage and message brokers.
                     </p>
                     <ul class="card-tech-list">
-                        <li><strong>Atomic Database Operations:</strong> <code style="white-space: nowrap;">northwind-api-server</code> writes business domain data and outbox events into PostgreSQL via JDBC in a single transaction.</li>
+                        <li><strong>Atomic Database Operations:</strong> <code style="white-space: nowrap;">northwind-api-server</code> writes business domain data and outbox events into PostgreSQL via Spring JPA in a single transaction.</li>
                         <li><strong>Guaranteed Delivery:</strong> <code style="white-space: nowrap;">(outbox_kafka_pipeline)</code>) reads records and publishes to Kafka.</li>
                         <li><strong>Fault Isolation:</strong> Network glitches between Kafka and DB never jeopardize domain transaction integrity.</li>
                     </ul>
