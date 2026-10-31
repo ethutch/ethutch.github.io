@@ -690,7 +690,11 @@
                     </a>
                 </div>
                 <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
-                    Event-driven architecture incorporating Apicurio Registry v3 schema validation, Keycloak authentication, Dead Letter Queue routing, and polyglot persistence.
+                    Spring Boot 3 Java ReST API server incorporating JPA updates.  Protobuf encoded outbox serialization based on Apicurio Registry schema 
+                    lookup. 
+                     <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
+                        Newest Spring Boot 3 authorization and authenticaton with separate filter chains for Users vs Actuator.
+                     </p>
                 </p>
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
                     <span class="badge">☕ Java 21</span>
@@ -717,7 +721,7 @@
                     </a>
                 </div>
                 <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
-                    Read wire formatted events: Apicurio schema and protobuf encoded and safely publish them to Kafka
+                    Read wire formatted PostgreSQL events: Apicurio schema and protobuf encoded and publish them to Kafka
                 </p>
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
                    <span class="badge">🐍 Python</span>
@@ -743,7 +747,11 @@
                     </a>
                 </div>
                 <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
-                    Read wire formatted events: Apicurio schema and protobuf encoded and safely publish them to Kafka
+                    Kubernetes Kafka Consumer Service that validates Apicurio schema and persists data to MongDB.
+                    <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
+                        This service also emulates AWS Event Source Mapping that is not available in LocalStack. It builds
+                        the exact payload ESM would provide and then invokes the lambda function.
+                    </p>
                 </p>
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
                    <span class="badge">🐍 Python</span>
@@ -768,7 +776,7 @@
                     </a>
                 </div>
                 <p style="color: var(--text-muted, #8b949e); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
-                    Read wire formatted events: Apicurio schema and protobuf encoded and safely publish them to Kafka
+                    Invoked by ESM [emulated] and save ESM records to DynamoDB items. Only full item replacement is currently implemented.
                 </p>
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
                     <span class="badge">🐍 Python</span>
